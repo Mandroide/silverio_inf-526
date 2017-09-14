@@ -26,15 +26,20 @@ Punto::Punto(int x, int y) {
 }
 
 Punto Punto::buscar(int x) {
+    return persist.at(x);
 
 }
 
 
 bool Punto::alta(int x, int y) {
+    persist.push_back(Punto(x, y));
+    return true;
 
 }
 
 bool Punto::baja(int pos) {
+    persist.erase(persist.begin() + pos);
+    return true;
 
 }
 

@@ -33,8 +33,6 @@ public:
     bool alta(int x, int y);
     bool baja(int pos);
 
-
-
 };
 
 #endif /* PUNTO_H */

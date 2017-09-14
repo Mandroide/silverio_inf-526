@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Punto.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -13,7 +14,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>Punto.cpp</itemPath>
-      <itemPath>Punto.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -37,6 +37,9 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <standard>11</standard>
+        </ccTool>
       </compileType>
       <item path="Punto.cpp" ex="false" tool="1" flavor2="0">
       </item>
