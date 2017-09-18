@@ -22,14 +22,12 @@ Punto::Punto() {
 Punto::Punto(int x, int y) {
     abscisa = x;
     ordenada = y;
-    persist = std::vector<Punto>();
 }
 
 Punto Punto::buscar(int x) {
     return persist.at(x);
 
 }
-
 
 bool Punto::alta(int x, int y) {
     persist.push_back(Punto(x, y));
@@ -42,5 +40,3 @@ bool Punto::baja(int pos) {
     return true;
 
 }
-
-
