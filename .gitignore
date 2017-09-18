@@ -1,2 +1,15 @@
 /build/
 /dist/
+
+#netbeans ignore personal stuff
+/nbproject/
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.txt
+*.stackdump
+*.inc
