@@ -12,91 +12,109 @@
  */
 
 #include <iostream>
-#include <map>
-#include <fstream> // Para archivo
+#include <map>  // Para coleccionar menu.
+#include <fstream> // Para archivo punto.txt.
 #include <string>
-#include <cstring>
+#include <cctype> // toupper();
 #include "Punto.h"
 //-------------------------
 using std::cout;
 using std::cin;
 using std::endl;
 using std::toupper;
+using std::string;
 //-------------------------
 
 enum class Menu {
-    AGREGAR = 1, ELIMINAR, BUSCAR
+    AGREGAR = 1, ELIMINAR, BUSCAR, SALIR = 0
 };
 // ------------------------
+unsigned short mostrarMenu();
+bool haSalido();
 void agregarPunto(Punto&);
 void eliminarPunto(Punto&);
 void buscarPunto(Punto&);
-void guardarPunto();
 //------------------------
 
 int main(int argc, char** argv) {
 
-    // Declaraciones para el switch case;
+    // Opciones a comparar con switch case;
     std::map<unsigned short, Menu> opciones;
     opciones[1] = Menu::AGREGAR;
     opciones[2] = Menu::ELIMINAR;
     opciones[3] = Menu::BUSCAR;
+    opciones[0] = Menu::SALIR;
     unsigned short opcion;
     // ---------------------------------------
-    
-    char salir;
-    bool haSalido = false;
-    bool esValida = false; // Valida entradas por teclado.
+
     Punto punto;
-    while (!haSalido) {
+    punto.leer();
+    bool haTerminado = false;    
+    while (!haTerminado) {
 
-        while (!esValida) {
-            cout << "\t\tElija la opcion que desea dentro del plano: \n";
-            cout << "1. Agregar un punto.\n";
-            cout << "2. Eliminar un punto.\n";
-            cout << "3. Buscar un punto.\n\n";
-            cin >> opcion;
+        opcion = mostrarMenu();
 
-            esValida = opcion >= 1 && opcion <= 3;
-            cout << "\n\n";
-        }
-        
         try {
             switch (opciones[opcion]) {
                 case Menu::AGREGAR:
                     agregarPunto(punto);
                     break;
                 case Menu::ELIMINAR:
-                    //eliminarPunto(punto);
+                    eliminarPunto(punto);
                     break;
                 case Menu::BUSCAR:
-                    //buscarPunto(punto);
+                    buscarPunto(punto);
                     break;
+                default:
+                    haTerminado = haSalido();                    
             }
-        } catch (std::string e){
-            cout << e;
+        } catch (string e) {
+            cout << e << endl;
         }
 
         cout << "\n\n";
-
-        esValida = false;
-        while (!esValida) {
-            cout << "Desea salir del programa?[S/N]: ";
-            cin >> salir;
-
-            salir = toupper(salir); // Convierte a mayuscula la opcion.
-            esValida = salir == 'S' || salir == 'N'; // Valida entrada por teclado.
-        }
-
-        haSalido = (salir == 'S');
-
+        cout << "Presione ENTER para continuar...";
+        cin.ignore();
+        cin.get();
+        cout << "\n\n";
     }
 
-    cout << "Presione ENTER para cerrar el programa...";
-    cin.ignore();
-    cin.get();
-
     return 0;
+}
+
+unsigned short mostrarMenu() {
+    unsigned short opcion;
+    const unsigned short SALIR = 0;
+    const unsigned short ULTIMA = 4;
+    bool esValida = false;
+    while (!esValida) {
+        cout << "\t\tElija la opcion que desea dentro del plano: \n";
+        cout << "1. Agregar un punto.\n";
+        cout << "2. Eliminar un punto.\n";
+        cout << "3. Buscar un punto.\n";
+        cout << "0. Salir.\n\n";
+        cin >> opcion;
+
+        esValida = opcion >= SALIR && opcion <= ULTIMA;
+        cout << "\n\n";
+    }
+
+    return opcion;
+}
+
+bool haSalido() {
+    char salir;
+    bool esValida = false; // Valida entrada por teclado del siguiente mensaje.
+    while (!esValida) {
+        cout << "Desea salir del programa?[S/N]: ";
+        cin >> salir;
+
+        salir = toupper(salir); // Convierte a mayuscula la opcion.
+        esValida = salir == 'S' || salir == 'N'; // Condicion de entrada por teclado.
+    }
+
+    return (salir == 'S');
+    
 }
 
 void agregarPunto(Punto& punto) {
@@ -121,21 +139,23 @@ void eliminarPunto(Punto& punto) {
     cout << "Ingrese la posicion del elemento que desea eliminar: ";
     cin >> pos;
 
-    if (punto.baja(pos)) {
-        cout << "El punto de la posicion " << pos << " del vector ha sido eliminado";
-    } else {
-        throw "El punto no ha sido eliminado correctamente. Intente otra vez";
-    }
+    int x = punto.buscar(pos).getAbscisa();
+    int y = punto.buscar(pos).getOrdenada();
+
+    punto.baja(pos);
+    cout << "El punto P(" << x << ", " << y << ") del vector ha sido eliminado";
 
 }
 
 void buscarPunto(Punto& punto) {
-    int i;
-    cout << "Ingrese indice de elemento a buscar: ";
+    unsigned i;
+    cout << "Ingrese indice de elemento a buscar : [0-n]";
     cin >> i;
 
-}
+    Punto p = punto.buscar(i);
 
-void guardarPunto() {
+    string x = std::to_string(p.getAbscisa());
+    string y = std::to_string(p.getOrdenada());
+    cout << "El punto #" << i << "  del vector corresponde al punto P(" + x + ", " + y + ")\n";
 
 }
