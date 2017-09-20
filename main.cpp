@@ -48,18 +48,17 @@ int main(int argc, char** argv) {
     // ---------------------------------------
 
     Punto punto;
-    bool haTerminado = false;
     try {
         punto.leer();
     } catch (string e) {
         cout << e << endl;
     }
-    
-    try {
-        while (!haTerminado) {
 
+    bool haTerminado = false;
+    while (!haTerminado) {
+        try {
             opcion = mostrarMenu();
-
+            
             switch (opciones[opcion]) {
                 case Menu::AGREGAR:
                     agregarPunto(punto);
@@ -73,16 +72,15 @@ int main(int argc, char** argv) {
                 default:
                     haTerminado = haSalido();
             }
-
-            cout << "\n\n";
-            cout << "Presione ENTER para continuar...";
-            cin.ignore();
-            cin.get();
-            cout << "\n\n";
+        } catch (string e) {
+            cout << e;
         }
 
-    } catch (string e){
-        cout << e << endl;
+        cout << "\n\n";
+        cout << "Presione ENTER para continuar...";
+        cin.ignore();
+        cin.get();
+        cout << "\n\n";
     }
 
 
