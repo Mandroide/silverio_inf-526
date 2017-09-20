@@ -15,24 +15,36 @@
 #define PUNTO_H
 
 #include <vector>
+#include <iostream>
 
 class Punto {
 private:
     int abscisa;
     int ordenada;
     std::vector<Punto> persist;
+
+    void grabar();
 public:
     Punto();
-    Punto(int x, int y);
+    Punto(const int x, const int y);
 
     virtual ~Punto() {
 
     }
-    
-    Punto buscar(int x);
-    bool alta(int x, int y);
-    bool baja(int pos);
 
+    void leer();
+    
+    Punto buscar(const unsigned x);
+    bool alta(const int x, const int y);
+    bool baja(const unsigned pos);
+        
+    int getOrdenada() const{
+        return ordenada;
+    }
+    int getAbscisa() const{
+        return abscisa;
+    }
+    
 };
 
 #endif /* PUNTO_H */
