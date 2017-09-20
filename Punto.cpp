@@ -16,6 +16,7 @@
 #include<stdexcept>
 #include <string>
 using std::fstream;
+using std::string;
 
 Punto::Punto() {
     abscisa = 0;
@@ -33,7 +34,7 @@ Punto Punto::buscar(const unsigned x) {
         Punto p = persist.at(x);
         return p;
     } catch (const std::out_of_range&){
-        std::string mensaje = "El elemento buscado no existe.";
+        string mensaje = "El elemento buscado no existe.";
         throw mensaje;
     }
 
@@ -68,7 +69,8 @@ void Punto::leer() {
             alta(x, y);
         }
     } else {
-        throw "El archivo no se abrio correctamente";
+        string mensaje = "El archivo no se abrio correctamente";
+        throw mensaje;
     }
     
     archivo.close();
@@ -87,7 +89,8 @@ void Punto::grabar() {
             archivo << punto.abscisa << "\t|\t" << punto.ordenada << "\r\n";
         }
     } else {
-        throw "El archivo no se abrio correctamente";
+        string mensaje = "El archivo no se abrio correctamente";
+        throw mensaje;
     }
 
     archivo.close();
