@@ -22,6 +22,11 @@ Punto::Punto() {
     abscisa = 0;
     ordenada = 0;
     persist = std::vector<Punto>();
+    try {
+        leer();
+    } catch (string) {
+
+    }
 }
 
 Punto::Punto(const int x, const int y) {
@@ -33,7 +38,7 @@ Punto Punto::buscar(const unsigned x) {
     try {
         Punto p = persist.at(x);
         return p;
-    } catch (const std::out_of_range&){
+    } catch (const std::out_of_range&) {
         string mensaje = "El elemento buscado no existe.";
         throw mensaje;
     }
@@ -72,7 +77,7 @@ void Punto::leer() {
         string mensaje = "El archivo no se abrio correctamente";
         throw mensaje;
     }
-    
+
     archivo.close();
 
 }
