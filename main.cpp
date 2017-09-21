@@ -48,11 +48,6 @@ int main(int argc, char** argv) {
     // ---------------------------------------
 
     Punto punto;
-    try {
-        punto.leer();
-    } catch (string e) {
-        cout << e << endl;
-    }
 
     bool haTerminado = false;
     while (!haTerminado) {
@@ -155,10 +150,10 @@ void eliminarPunto(Punto& punto) {
 
 void buscarPunto(Punto& punto) {
     unsigned i;
-    cout << "Ingrese indice de elemento a buscar : [0-n]";
+    cout << "Ingrese indice de elemento a buscar [0-n]: ";
     cin >> i;
 
-    Punto p = punto.buscar(i);
+    const Punto p = punto.buscar(i);
 
     string x = std::to_string(p.getAbscisa());
     string y = std::to_string(p.getOrdenada());

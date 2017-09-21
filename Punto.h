@@ -24,6 +24,8 @@ private:
     std::vector<Punto> persist;
 
     void grabar();
+    void leer();
+
 public:
     Punto();
     Punto(const int x, const int y);
@@ -32,19 +34,18 @@ public:
 
     }
 
-    void leer();
-    
     Punto buscar(const unsigned x);
     bool alta(const int x, const int y);
     bool baja(const unsigned pos);
-        
-    int getOrdenada() const{
+
+    int getOrdenada() const {
         return ordenada;
     }
-    int getAbscisa() const{
+
+    int getAbscisa() const {
         return abscisa;
     }
-    
+
 };
 
 #endif /* PUNTO_H */
