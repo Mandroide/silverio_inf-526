@@ -15,7 +15,8 @@
 #include <map>  // Para coleccionar menu.
 #include <fstream> // Para archivo punto.txt.
 #include <string>
-#include <cctype> // toupper();
+#include <cctype>
+#include <limits> // toupper();
 #include "Punto.h"
 //-------------------------
 using std::cout;
@@ -23,6 +24,8 @@ using std::cin;
 using std::endl;
 using std::toupper;
 using std::string;
+// Valida entrada por teclado.
+using std::streamsize;
 //-------------------------
 
 enum class Menu {
@@ -53,7 +56,7 @@ int main(int argc, char** argv) {
     while (!haTerminado) {
         try {
             opcion = mostrarMenu();
-            
+
             switch (opciones[opcion]) {
                 case Menu::AGREGAR:
                     agregarPunto(punto);
@@ -94,10 +97,16 @@ unsigned short mostrarMenu() {
         cout << "2. Eliminar un punto.\n";
         cout << "3. Buscar un punto.\n";
         cout << "0. Salir.\n\n";
-        cin >> opcion;
 
-        esValida = opcion >= SALIR && opcion <= ULTIMA;
+        if (cin >> opcion) {
+            esValida = opcion >= SALIR && opcion <= ULTIMA;
+        } else{
+            cin.clear();
+            cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+        }
+
         cout << "\n\n";
+
     }
 
     return opcion;
