@@ -15,7 +15,8 @@
 #include <map>  // Para coleccionar menu.
 #include <fstream> // Para archivo punto.txt.
 #include <string>
-#include <cctype> // toupper();
+#include <cctype>
+#include <limits> // toupper();
 #include "Punto.h"
 //-------------------------
 using std::cout;
@@ -23,12 +24,15 @@ using std::cin;
 using std::endl;
 using std::toupper;
 using std::string;
+// Valida entrada por teclado.
+using std::streamsize;
 //-------------------------
 
 enum class Menu {
     AGREGAR = 1, ELIMINAR, BUSCAR, SALIR = 0
 };
 // ------------------------
+template <class T> void validarNumero(T& arg, string mensaje);
 unsigned short mostrarMenu();
 bool haSalido();
 void agregarPunto(Punto&);
@@ -53,7 +57,7 @@ int main(int argc, char** argv) {
     while (!haTerminado) {
         try {
             opcion = mostrarMenu();
-            
+
             switch (opciones[opcion]) {
                 case Menu::AGREGAR:
                     agregarPunto(punto);
@@ -78,9 +82,22 @@ int main(int argc, char** argv) {
         cout << "\n\n";
     }
 
-
-
     return 0;
+}
+
+template <class T> void validarNumero(T& arg, string mensaje) {
+    bool esValida = false;
+    while (!esValida) {
+        cout << mensaje;
+        if (cin >> arg) {
+            esValida = true;
+        } else {
+            cin.clear();
+            cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+        }
+        cout << "\n\n";        
+    }
+
 }
 
 unsigned short mostrarMenu() {
@@ -88,18 +105,17 @@ unsigned short mostrarMenu() {
     const unsigned short SALIR = 0;
     const unsigned short ULTIMA = 4;
     bool esValida = false;
+    string menu = "\t\tElija la opcion que desea dentro del plano: \n";
+    menu.append("1. Agregar un punto.\n");
+    menu.append("2. Eliminar un punto.\n");
+    menu.append("3. Buscar un punto.\n");
+    menu.append("0. Salir.\n\n");
+    
     while (!esValida) {
-        cout << "\t\tElija la opcion que desea dentro del plano: \n";
-        cout << "1. Agregar un punto.\n";
-        cout << "2. Eliminar un punto.\n";
-        cout << "3. Buscar un punto.\n";
-        cout << "0. Salir.\n\n";
-        cin >> opcion;
-
-        esValida = opcion >= SALIR && opcion <= ULTIMA;
-        cout << "\n\n";
+        validarNumero(opcion, menu);
+        esValida = opcion >=SALIR && opcion <= ULTIMA;
     }
-
+         
     return opcion;
 }
 
@@ -120,11 +136,11 @@ bool haSalido() {
 
 void agregarPunto(Punto& punto) {
     int x, y;
-    cout << "Ingrese valor de eje x: ";
-    cin >> x;
+    string mensajeX = "Ingrese valor de eje x: ";
+    validarNumero(x, mensajeX);
 
-    cout << "Ingrese valor de eje y: ";
-    cin >> y;
+    string mensajeY =  "Ingrese valor de eje y: ";
+    validarNumero(y, mensajeY);
 
     if (punto.alta(x, y)) {
         cout << "El punto P(" << x << ", " << y << ") ha sido agregado correctamente." << endl;
@@ -137,8 +153,8 @@ void agregarPunto(Punto& punto) {
 
 void eliminarPunto(Punto& punto) {
     int pos;
-    cout << "Ingrese la posicion del elemento que desea eliminar: ";
-    cin >> pos;
+    string mensaje = "Ingrese la posicion del elemento que desea eliminar: ";
+    validarNumero(pos, mensaje);
 
     int x = punto.buscar(pos).getAbscisa();
     int y = punto.buscar(pos).getOrdenada();
@@ -150,8 +166,8 @@ void eliminarPunto(Punto& punto) {
 
 void buscarPunto(Punto& punto) {
     unsigned i;
-    cout << "Ingrese indice de elemento a buscar [0-n]: ";
-    cin >> i;
+    string mensaje = "Ingrese indice de elemento a buscar [0-n]: ";
+    validarNumero(i, mensaje);
 
     const Punto p = punto.buscar(i);
 
