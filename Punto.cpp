@@ -13,17 +13,19 @@
 
 #include "Punto.h"
 #include <fstream>
-#include<stdexcept>
+#include <stdexcept>
 #include <string>
+#include <thread>
 using std::fstream;
 using std::string;
-
+using std::thread;
 Punto::Punto() {
     abscisa = 0;
     ordenada = 0;
     persist = std::vector<Punto>();
     try {
-        leer();
+        thread t(&Punto::leer, this);
+        t.join();
     } catch (string) {
 
     }
@@ -47,14 +49,16 @@ Punto Punto::buscar(const unsigned x) {
 
 bool Punto::alta(const int x, const int y) {
     persist.push_back(Punto(x, y));
-    grabar();
+    thread t(&Punto::grabar, this);
+    t.join();
     return true;
 
 }
 
 bool Punto::baja(const unsigned pos) {
     persist.erase(persist.begin() + pos);
-    grabar();
+    thread t(&Punto::grabar, this);
+    t.join();
     return true;
 
 }
