@@ -1,22 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
  * File:   main.cpp
  * Author: aybar
  *
  * Created on September 14, 2017, 4:59 PM
  */
-
 #include <iostream>
 #include <map>  // Para coleccionar menu.
 #include <fstream> // Para archivo punto.txt.
 #include <string>
-#include <cctype>
-#include <limits> // toupper();
+#include <cctype> // toupper();
+#include <limits> // Valida entrada por teclado.
 #include "Punto.h"
 //-------------------------
 using std::cout;
