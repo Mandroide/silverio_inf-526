@@ -9,7 +9,6 @@
 #define PUNTO_H
 
 #include <vector>
-#include <iostream>
 
 class Punto {
 private:
