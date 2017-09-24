@@ -6,7 +6,6 @@
  */
 #include <iostream>
 #include <map>  // Para coleccionar menu.
-#include <fstream> // Para archivo punto.txt.
 #include <string>
 #include <cctype> // toupper();
 #include <limits> // Valida entrada por teclado.
@@ -25,7 +24,7 @@ enum class Menu {
     AGREGAR = 1, ELIMINAR, BUSCAR, SALIR = 0
 };
 // ------------------------
-template <class T> void validarNumero(T& arg, string mensaje);
+void validarNumero(auto& numero, string mensaje);
 unsigned short mostrarMenu();
 bool haSalido();
 void agregarPunto(Punto&);
@@ -78,12 +77,12 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-template <class T> void validarNumero(T& arg, string mensaje) {
-    bool esValida = false;
-    while (!esValida) {
+void validarNumero(auto& numero, string mensaje) {
+    bool esValido = false;
+    while (!esValido) {
         cout << mensaje;
-        if (cin >> arg) {
-            esValida = true;
+        if (cin >> numero) {
+            esValido = true;
         } else {
             cin.clear();
             cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
