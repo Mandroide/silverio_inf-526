@@ -6,16 +6,17 @@
  */
 #include "Punto.h"
 #include <fstream>
-#include <stdexcept>
+#include <stdexcept> 
 #include <string>
 using std::fstream;
 using std::string;
+
 Punto::Punto() {
     abscisa = 0;
     ordenada = 0;
     persist = std::vector<Punto>();
     try {
-		leer();
+        leer();
     } catch (string) {
 
     }
@@ -39,14 +40,14 @@ Punto Punto::buscar(const unsigned x) {
 
 bool Punto::alta(const int x, const int y) {
     persist.push_back(Punto(x, y));
-	grabar();
+    grabar();
     return true;
 
 }
 
 bool Punto::baja(const unsigned pos) {
     persist.erase(persist.begin() + pos);
-	grabar();
+    grabar();
     return true;
 
 }
