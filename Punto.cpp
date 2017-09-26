@@ -11,7 +11,7 @@
 using std::fstream;
 using std::string;
 
-Punto::Punto() {
+Punto::Punto() : IOInterface("punto.txt"){
     abscisa = 0;
     ordenada = 0;
     persist = std::vector<Punto>();
@@ -54,11 +54,11 @@ bool Punto::baja(const unsigned pos) {
 
 void Punto::leer() {
     fstream archivo;
-    archivo.open("punto.txt", std::ios::in);
+    archivo.open(getNombreArchivo(), std::ios::in);
     char pipe;
     int x;
     int y;
-
+    
     if (!archivo.fail()) {
         persist.clear(); // Limpia elementos del vector.
         while (archivo >> x) {
@@ -80,7 +80,7 @@ void Punto::leer() {
 void Punto::grabar() {
 
     fstream archivo;
-    archivo.open("punto.txt", std::ios::out);
+    archivo.open(getNombreArchivo(), std::ios::out);
 
     if (!archivo.fail()) {
         for (auto punto : persist) {

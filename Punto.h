@@ -7,25 +7,21 @@
 
 #ifndef PUNTO_H
 #define PUNTO_H
-
+#include "IOInterface.h"
 #include <vector>
 
-class Punto {
+class Punto : IOInterface {
 private:
     int abscisa;
     int ordenada;
     std::vector<Punto> persist;
 
-    void grabar();
-    void leer();
+    void grabar() override;
+    void leer() override;
 
 public:
     Punto();
     Punto(const int x, const int y);
-
-    virtual ~Punto() {
-
-    }
 
     Punto buscar(const unsigned x);
     bool alta(const int x, const int y);
