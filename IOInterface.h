@@ -14,7 +14,6 @@
 #ifndef IOINTERFACE_H
 #define IOINTERFACE_H
 #include <string>
-#include <vector>
 
 class IOInterface {
 public:
